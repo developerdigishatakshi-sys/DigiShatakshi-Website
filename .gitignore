@@ -42,3 +42,18 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Local backups and temporary files
+*.bak
+*.backup*
+*.before-*
+*.zip
+backups/
+df-patch-extracted/
+apply-*.ps1
+fix-*.ps1
