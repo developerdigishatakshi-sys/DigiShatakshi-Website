@@ -1,69 +1,876 @@
-import Image from "next/image";
+
+import Link from "next/link";
+import { SeoWordTyping } from "@/components/home/seo-word-typing";
+import { HeroInteractiveTitle } from "@/components/home/hero-interactive-title";
+import CrystalizedBall from "@/components/CrystalizedBall";
+import { HeroVisual } from "@/components/home/hero-visual";
+import { HeroScrollEffect } from "@/components/home/hero-scroll-effect";
+import { ProcessScrollReveal } from "@/components/home/process-scroll-reveal";
+import {
+  HomeFaqs,
+  InquiryForm,
+} from "@/components/home/home-interactions";
+
+const serviceTypingMessages: Record<string, { left: string; right: string }> = {
+  "01": {
+    left: "Google पर दिखाई दें, बिज़नेस बढ़ाएँ!",
+    right: "सही SEO, बिज़नेस की ग्रोथ का नया रास्ता!",
+  },
+  "02": {
+    left: "लाइक्स से आगे बढ़ें, ग्राहकों से जुड़ें!",
+    right: "सोशल मीडिया से पहचान बनाएँ!",
+  },
+  "03": {
+    left: "सही ऑडियंस, सही विज्ञापन, बेहतर परिणाम!",
+    right: "Google और Social Media Ads से अपने ब्रांड की पहुँच बढ़ाएँ!",
+  },
+  "04": {
+    left: "कंटेंट से जुड़ें, भरोसे से बढ़ें!",
+    right: "ऐसा कंटेंट जो दिल जीते और ध्यान खींचे!",
+  },
+  "05": {
+    left: "सिर्फ वेबसाइट नहीं, आपके बिज़नेस की डिजिटल पहचान!",
+    right: "डिज़ाइन जो ध्यान खींचे, अनुभव जो भरोसा बनाए!",
+  },
+  "06": {
+    left: "हर रंग में सोच, हर डिज़ाइन में पहचान!",
+    right: "आपका विज़न, आपकी पहचान, आपका ब्रांड!",
+  },
+  "07": {
+    left: "सही लीड्स, बेहतर ग्रोथ!",
+    right: "ज़्यादा संभावनाएँ, बेहतर कन्वर्ज़न!",
+  },
+};
+const services = [
+  {
+    number: "01",
+    title: "Search Engine Optimization",
+    description:
+      "Build long-term organic visibility with technical, on-page, content, and off-page SEO strategies designed around relevant search intent.",
+    href: "/services/seo-services-lucknow",
+    cta: "Explore SEO",
+    tag: "Search",
+  },
+  {
+    number: "02",
+    title: "Social Media Marketing",
+    description:
+      "Turn social platforms into meaningful channels for brand awareness, audience engagement, and business growth through strategic content and consistent communication.",
+    href: "/services/social-media-marketing-lucknow",
+    cta: "Explore Social Media Marketing",
+    tag: "Social",
+  },
+  {
+    number: "03",
+    title: "Paid Advertising",
+    description:
+      "Create targeted paid campaigns designed to connect your business with relevant audiences and move them from attention to action.",
+    href: "/services/paid-advertising-lucknow",
+    cta: "Explore Paid Marketing",
+    tag: "Performance",
+  },
+  {
+    number: "04",
+    title: "Content Marketing",
+    description:
+      "Create valuable, relevant content that supports your SEO, social media, brand, and conversion goals.",
+    href: "/services/content-marketing-lucknow",
+    cta: "Explore Content Marketing",
+    tag: "Content",
+  },
+  {
+    number: "05",
+    title: "Website & Landing Pages",
+    description:
+      "Your website is more than a digital brochure. We create user-focused websites and landing pages that communicate your value clearly and guide visitors toward action.",
+    href: "/services/website-landing-pages",
+    cta: "Explore Website & Landing Pages",
+    tag: "Web",
+  },
+  {
+    number: "06",
+    title: "Branding & Creative",
+    description:
+      "Build a consistent visual identity that communicates your brand clearly across digital channels.",
+    href: "/services/branding-creative-lucknow",
+    cta: "Explore Branding & Creative",
+    tag: "Creative",
+  },
+  {
+    number: "07",
+    title: "Lead Generation",
+    description:
+      "Develop targeted campaigns and conversion journeys designed to attract relevant prospects and create a stronger flow of inquiries.",
+    href: "/services/lead-generation-lucknow",
+    cta: "Explore Lead Generation",
+    tag: "Growth",
+  },
+] as const;
+
+const process = [
+  {
+    number: "01",
+    title: "Discover",
+    description:
+      "Understand your business, audience, goals, and current digital presence.",
+  },
+  {
+    number: "02",
+    title: "Research",
+    description:
+      "Analyze your market, competitors, audience behavior, and relevant opportunities.",
+  },
+  {
+    number: "03",
+    title: "Strategize",
+    description:
+      "Build a digital marketing strategy based on your business objectives.",
+  },
+  {
+    number: "04",
+    title: "Execute",
+    description:
+      "Implement SEO, content, social media, paid campaigns, web, and other relevant activities.",
+  },
+  {
+    number: "05",
+    title: "Measure",
+    description:
+      "Track important performance indicators and campaign results.",
+  },
+  {
+    number: "06",
+    title: "Optimize",
+    description:
+      "Use performance insights to improve campaigns and continuously refine the strategy.",
+  },
+] as const;
+
+const differentiators = [
+  {
+    number: "01",
+    title: "Business-First Strategy",
+    description:
+      "We begin with your business objectives rather than simply choosing a marketing channel.",
+  },
+  {
+    number: "02",
+    title: "Integrated Digital Marketing",
+    description:
+      "SEO, content, social media, paid advertising, and web work together instead of operating as disconnected activities.",
+  },
+  {
+    number: "03",
+    title: "Audience-Centric Thinking",
+    description:
+      "We focus on understanding who you want to reach and what motivates them to take action.",
+  },
+  {
+    number: "04",
+    title: "Creative + Performance",
+    description:
+      "Strong creative builds attention, while data helps guide optimization.",
+  },
+  {
+    number: "05",
+    title: "Transparent Communication",
+    description:
+      "Clear communication and understandable reporting keep you informed about your marketing activity.",
+  },
+  {
+    number: "06",
+    title: "Scalable Solutions",
+    description:
+      "Our services can evolve as your business, audience, and digital requirements grow.",
+  },
+] as const;
+
+const blogPlaceholders = [
+  {
+    category: "SEO",
+    title: "A practical starting point for stronger search visibility",
+    description:
+      "Explore the foundations that help people discover your business through search.",
+  },
+  {
+    category: "Paid Advertising",
+    title: "Making your advertising budget work harder",
+    description:
+      "Understand the role of targeting, tracking, and ongoing campaign optimization.",
+  },
+  {
+    category: "Website & Conversion",
+    title: "Turning website visits into meaningful enquiries",
+    description:
+      "See how clearer messaging and a focused user journey can support conversion.",
+  },
+] as const;
+
+const heroDescription =
+  "Build stronger online visibility, reach the right audiences, and generate qualified leads with strategy-led digital marketing. From SEO and paid advertising to social media, content, and conversion-focused websites, every channel is aligned with your business goals.";
+
+const serviceColors = [
+  "#8B7CFF",
+  "#58D6D0",
+  "#FF966B",
+  "#E99BEF",
+  "#75B8FF",
+  "#C4A1FF",
+  "#F2C16D",
+] as const;
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <main id="main-content">
+      {/* Preserve the existing hero scroll-pinning scene. */}
+      <div className="hero-scroll-scene">
+        <div className="hero-scroll-scene__sticky">
+          <section className="hero section-shell">
+            <HeroScrollEffect />
+
+            <div className="hero__ambient" aria-hidden="true">
+              <div className="hero__orb hero__orb--one" />
+              <div className="hero__orb hero__orb--two" />
+              <div className="hero__grid" />
+            </div>
+
+
+            <div className="container hero__content">
+              <div className="hero__copy">
+                <HeroInteractiveTitle />
+
+
+                <p className="hero__description">
+                  {heroDescription}
+                </p>
+
+                <div className="hero__actions">
+                  <Link
+                    href="/#contact"
+                    className="button button--primary"
+                  >
+                    Get a Free Consultation
+                  </Link>
+                </div>
+              </div>
+
+              <div className="hero__carousel">
+                <HeroVisual />
+              </div>
+            </div>
+
+            <div className="container hero__bottom">
+              <a
+                href="#services"
+                aria-label="Explore services"
+              >
+                {"\u2193"}
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      {/* Services introduction */}
+      <section
+        id="expertise"
+        className="intro-section section-shell"
+      >
+        <div className="container intro-section__grid">
+
+<div className="services-orbit" aria-label="Our Services">
+  <svg
+    className="services-orbit__ring"
+    viewBox="0 0 160 160"
+    role="img"
+    aria-hidden="true"
+  >
+    <defs>
+      <path
+        id="services-orbit-path"
+        d="M 80,80 m -57,0 a 57,57 0 1,1 114,0 a 57,57 0 1,1 -114,0"
+      />
+    </defs>
+
+    <text>
+      <textPath href="#services-orbit-path">OUR SERVICES - DIGITAL STRATEGY -</textPath>
+    </text>
+  </svg>
+
+  <span className="services-orbit__center" aria-hidden="true">&#8599;</span>
+</div>
+
+
+          <div>
+            <h2 className="section-heading">
+              Digital Marketing Services{" "}
+              <span className="text-accent">
+                Built Around Your Business Goals
+              </span>
+            </h2>
+
+            <p className="section-copy">
+              Every business has different audiences, challenges, and
+              objectives. We connect strategy, creativity, and performance to
+              build a digital presence around the goals that matter to you.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Crystal sphere services */}
+      <section
+        id="services"
+        className="services-section section-shell"
+      >
+        <div className="container">
+          <div className="section-header">
+            <div>
+              <p className="eyebrow">What We Do</p>
+
+              <h2 className="section-heading">
+                The right mix of services.
+                <br />
+                <span className="text-accent">
+                  One connected strategy.
+                </span>
+              </h2>
+            </div>
+
+            <Link
+              href="/services"
+              className="text-link"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+              View All Services{" "}
+              <span aria-hidden="true">
+                {"\u2192"}
+              </span>
+            </Link>
+          </div>
+
+          <div className="crystal-services-grid">
+            {/* CRYSTAL_CONTENT_INSIDE_ORB_PATCH */}
+            {services.map((service, index) => (
+              <Link
+                key={service.number}
+                href={service.href}
+                className="crystal-service"
+                aria-label={`${service.title}: ${service.description}`}
+              >
+                {(service.number === "01" ||
+  service.number === "02" ||
+  service.number === "03" ||
+  service.number === "04" ||
+  service.number === "05" ||
+  service.number === "06" ||
+  service.number === "07") && (
+                  <span
+                    className={`crystal-service__side-images crystal-service__side-images--${service.number}`}
+                    aria-hidden="true"
+                  >
+                    {service.number === "01" ? (
+                      <>
+                        <span className="crystal-service__image crystal-service__image--left">
+                          <img
+                            src="/images/services/seo-growth-illustration.png"
+                            alt=""
+                          />
+                        </span>
+                        <span className="crystal-service__image crystal-service__image--right">
+                          <img
+                            src="/images/services/seo-growth-dashboard.png"
+                            alt=""
+                          />
+                        </span>
+                      </>
+                    ) : service.number === "02" ? (
+                      <>
+                        <span className="crystal-service__image crystal-service__image--left">
+                          <img
+                            src="/images/services/social-media-collage.png"
+                            alt=""
+                          />
+                        </span>
+                        <span className="crystal-service__image crystal-service__image--right">
+                          <img
+                            src="/images/services/social-media-storefront.png"
+                            alt=""
+                          />
+                        </span>
+                      </>
+                    ) : service.number === "03" ? (
+                      
+                      <>
+                      
+                        <span className="crystal-service__image crystal-service__image--left">
+                          <img src="/images/services/paid-ads-left.png" alt="" />
+                        </span>
+                        <span className="crystal-service__image crystal-service__image--right">
+                          <img src="/images/services/paid-ads-right.png" alt="" />
+                        </span>
+                      </>
+                    ) : service.number === "05" ? (
+                      <>
+                        <span className="crystal-service__image crystal-service__image--left">
+                          <img src="/images/services/website-growth-left.png" alt="Website growth and SEO" />
+                        </span>
+                        <span className="crystal-service__image crystal-service__image--right">
+                          <img src="/images/services/website-design-right.png" alt="High-converting website design" />
+                        </span>
+                      </>
+                    ) : service.number === "06" ? (
+                      <>
+                        <span className="crystal-service__image crystal-service__image--left">
+                          <img src="/images/services/branding-creative-left.png" alt="Branding and creative collage" />
+                        </span>
+                        <span className="crystal-service__image crystal-service__image--right">
+                          <img src="/images/services/branding-creative-right.png" alt="Creative branding workspace" />
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="crystal-service__image crystal-service__image--left">
+                          <img src="/images/services/lead-generation-left.png" alt="" />
+                        </span>
+                        <span className="crystal-service__image crystal-service__image--right">
+                          <img src="/images/services/lead-generation-right.png" alt="" />
+                        </span>
+                      </>
+                    )}
+                  </span>
+                )}
+
+                {serviceTypingMessages[service.number]?.left && (
+                  <SeoWordTyping
+                    side="left"
+                    text={serviceTypingMessages[service.number].left}
+                  />
+                )}
+                {serviceTypingMessages[service.number]?.right && (
+                  <SeoWordTyping
+                    side="right"
+                    text={serviceTypingMessages[service.number].right}
+                  />
+                )}
+<span
+                  className="crystal-service__visual"
+                  aria-hidden="true"
+                >
+                  <CrystalizedBall
+                    preset={
+                      index === 2
+                        ? "ember"
+                        : index === 1 || index === 4
+                          ? "aurora"
+                          : index === 5
+                            ? "nebula"
+                            : "plasma"
+                    }
+                    color={serviceColors[index]}
+                    theme="dark"
+                    size={0.68}
+                    strands={5}
+                    crackle={0.65}
+                    flares={0.5}
+                    glow={0.75}
+                    sparks={0.42}
+                    particleCount={1800}
+                    fill={0.42}
+                    motion="rise"
+                    particleShape="square"
+                    depth={0.6}
+                    sway={0.5}
+                    twinkle={0.5}
+                    haze={0.7}
+                    dustSpeed={1}
+                    speed={1}
+                    interactive
+                    hoverStrength={0.7}
+                    intro
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                </span>
+
+                <span className="crystal-service__content">
+                  <span className="crystal-service__meta">
+                    <span>{service.number}</span>
+                    <span>{service.tag}</span>
+                  </span>
+
+                  <span className="crystal-service__title">
+                    {service.title}
+                  </span>
+
+                  <span className="crystal-service__description">
+                    {service.description}
+                  </span>
+
+                  <span className="crystal-service__cta">
+                    {service.cta}{" "}
+                    <span aria-hidden="true">
+                      {"\u2197"}
+                    </span>
+                  </span>
+                </span>
+                </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Our process */}
+      <section
+        id="our-process"
+        className="approach-section section-shell"
+      >
+        <div className="container">
+          <div className="approach-section__intro">
+            <p className="eyebrow">Our Process</p>
+
+            <h2 className="section-heading">
+              How We <span className="text-accent">Work</span>
+            </h2>
+
+            <p className="section-copy">
+              A clear, considered process helps every activity stay connected
+              to your business goals.
+            </p>
+          </div>
+
+          <ProcessScrollReveal />
+
+          <div className="process-grid">
+            {process.map((step) => (
+              <article
+                className="process-card"
+                key={step.number}
+              >
+                <span className="process-card__number">
+                  {step.number}
+                </span>
+
+                <div className="process-card__rule" />
+
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why businesses choose us */}
+      <section className="why-section section-shell">
+        <div className="container">
+          <div className="section-intro">
+            <p className="eyebrow">
+              Why Businesses Choose Us
+            </p>
+
+            <h2 className="section-heading">
+              Marketing with a reason.
+              <br />
+              <span className="text-accent">
+                Growth with direction.
+              </span>
+            </h2>
+
+            <p className="section-copy">
+              A good partnership connects business understanding, creative
+              thinking, and clear communication.
+            </p>
+          </div>
+
+          <div className="why-grid">
+            {differentiators.map((item) => (
+              <article
+                className="why-card"
+                key={item.number}
+              >
+                <span className="why-card__number">
+                  {item.number}
+                </span>
+
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Agency highlights */}
+      <section
+        className="stats-section section-shell"
+        aria-label="Agency highlights"
+      >
+        <div className="container stats-grid">
+          <div className="stat-item">
+            <strong>XX+</strong>
+            <span>Projects Delivered</span>
+          </div>
+
+          <div className="stat-item">
+            <strong>XX+</strong>
+            <span>Clients Served</span>
+          </div>
+
+          <div className="stat-item">
+            <strong>XX+</strong>
+            <span>Years of Experience</span>
+          </div>
+
+          <div className="stat-item">
+            <strong>XX+</strong>
+            <span>Industries Served</span>
+          </div>
+        </div>
+
+        <p className="container stats-note">
+          Replace these placeholders with verified agency figures before
+          publishing.
+        </p>
+      </section>
+
+      {/* Client network */}
+      <section className="clients-section section-shell">
+        <div className="container">
+          <div className="section-intro section-intro--compact">
+            <p className="eyebrow">Our Client Network</p>
+
+            <h2 className="section-heading">
+              Good work is built{" "}
+              <span className="text-accent">
+                together.
+              </span>
+            </h2>
+
+            <p className="section-copy">
+              Add the logos of businesses you have permission to feature.
+            </p>
+          </div>
+
+          <div
+            className="client-logo-row"
+            aria-label="Client logo placeholders"
+          >
+            <span>Client logo</span>
+            <span>Client logo</span>
+            <span>Client logo</span>
+            <span>Client logo</span>
+            <span>Client logo</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="testimonials-section section-shell">
+        <div className="container">
+          <div className="section-header">
+            <div>
+              <p className="eyebrow">Testimonials</p>
+
+              <h2 className="section-heading">
+                Partnerships that{" "}
+                <span className="text-accent">
+                  matter.
+                </span>
+              </h2>
+            </div>
+          </div>
+
+          <div className="testimonial-grid">
+            {[1, 2, 3].map((item) => (
+              <article
+                className="testimonial-card"
+                key={item}
+              >
+                <span
+                  className="testimonial-card__quote"
+                  aria-hidden="true"
+                >
+                  {"\u201C"}
+                </span>
+
+                <p>
+                  Add a genuine client testimonial here once approved for
+                  publication.
+                </p>
+
+                <div className="testimonial-card__person">
+                  <span className="testimonial-avatar">
+                    {"0" + item}
+                  </span>
+
+                  <span>
+                    <strong>Client name</strong>
+                    <small>Company / Industry</small>
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <p className="section-footnote">
+            Testimonials are placeholders and must be replaced with genuine,
+            approved client quotes.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Blog previews */}
+      <section
+        id="blogs"
+        className="blogs-section section-shell"
+      >
+        <div className="container">
+          <div className="section-header">
+            <div>
+              <p className="eyebrow">Blogs</p>
+
+              <h2 className="section-heading">
+                Ideas for your{" "}
+                <span className="text-accent">
+                  next move.
+                </span>
+              </h2>
+            </div>
+
+            <Link
+              href="/blog"
+              className="text-link"
+            >
+              Explore All Insights{" "}
+              <span aria-hidden="true">
+                {"\u2192"}
+              </span>
+            </Link>
+          </div>
+
+          <div className="blog-grid">
+            {blogPlaceholders.map((post, index) => (
+              <article
+                className="blog-card"
+                key={post.title}
+              >
+                <div
+                  className={`blog-card__visual blog-card__visual--${index + 1}`}
+                >
+                  <span>DF / INSIGHTS</span>
+
+                  <span className="blog-card__visual-index">
+                    0{index + 1}
+                  </span>
+                </div>
+
+                <div className="blog-card__content">
+                  <p className="blog-card__category">
+                    {post.category}
+                  </p>
+
+                  <h3>{post.title}</h3>
+                  <p>{post.description}</p>
+
+                  <Link
+                    href="/blog"
+                    className="text-link"
+                  >
+                    Read insights{" "}
+                    <span aria-hidden="true">
+                      {"\u2197"}
+                    </span>
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <p className="section-footnote">
+            These are preview placeholders, not published articles. Connect
+            each card to a real blog post before launch.
+          </p>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* FAQs */}
+      <section
+        id="faq"
+        className="faq-section section-shell"
+      >
+        <div className="container faq-layout">
+          <div className="faq-intro">
+            <p className="eyebrow">FAQs</p>
+
+            <h2 className="section-heading">
+              A few things you may{" "}
+              <span className="text-accent">
+                want to know.
+              </span>
+            </h2>
+
+            <p className="section-copy">
+              Have another question? We would be happy to discuss your goals.
+            </p>
+
+            <Link
+              href="/contact"
+              className="text-link"
+            >
+              Talk to our team{" "}
+              <span aria-hidden="true">
+                {"\u2197"}
+              </span>
+            </Link>
+          </div>
+
+          <HomeFaqs />
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section
+        id="contact"
+        className="inquiry-section section-shell"
+      >
+        <div className="container inquiry-layout">
+          <div className="inquiry-copy">
+            <p className="eyebrow">Why Connect With Us?</p>
+
+            <h2 className="section-heading">
+              Let&apos;s Build Your{" "}
+              <span className="text-accent">
+                Digital Growth Strategy
+              </span>
+            </h2>
+
+            <p className="section-copy">
+              Whether you&apos;re looking to improve search visibility,
+              generate qualified leads, strengthen your social presence, or
+              scale your paid campaigns, let&apos;s discuss where your
+              business can grow digitally.
+            </p>
+
+            <div className="inquiry-promise">
+              <span className="status-dot" />
+              A conversation focused on your goals.
+            </div>
+          </div>
+
+          <div className="inquiry-form-wrap">
+            <div className="inquiry-form-heading">
+              <p className="eyebrow">Start a Conversation</p>
+              <h3>Send Us A Message</h3>
+              <p>Tell us a little about what you need.</p>
+            </div>
+
+            <InquiryForm />
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
+
